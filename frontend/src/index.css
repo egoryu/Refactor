@@ -1,0 +1,162 @@
+body {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+  margin: 0;
+  padding: 0;
+
+}
+
+.wrapper {
+  width: 1280px;
+  margin: 80px auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+header .search {
+  display: block;
+  width: 90%;
+}
+
+header input {
+  display: block;
+  margin-left: 10px;
+  width: 90%;
+  height: calc(2rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.5rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+header .logoName {
+  display: flex;
+}
+header .profile {
+  justify-self: flex-end;
+}
+
+header .name {
+  font-size: 50px;
+  font-weight: 600;
+}
+
+footer {
+  text-align: center;
+  margin-top: 10px;
+  border-top: 1px solid black;
+  padding-top: 5px;
+}
+
+.menu {
+  min-width: 150px;
+  margin-top: 10px;
+  border-right: 1px solid black;
+  padding: 10px;
+}
+
+.menu h1 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding-left: 10px;
+  margin: 0;
+}
+
+.menu li {
+  margin-bottom: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.menu li:hover {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.menuContent {
+  display: flex;
+}
+
+.selected {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #FAA519;
+}
+
+.button {
+  background-color: #FAA519;
+  text-align: center;
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: 4px;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 100;
+}
+
+.menuText {
+  text-decoration: none;
+  color: inherit;
+}
+
+.mainPage {
+  margin-left: 20%;
+  margin-top:  20px;
+  margin-bottom: 20px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 500px;
+}
+
+.mainPage label {
+  margin: 5px;
+}
+
+.mainPage textarea {
+  width: 400px;
+  height: 100px;
+}
+
+.mainPage input {
+  width: 300px;
+}
+
+button {
+  height: 40px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #003CC5 0%, #0B63F6 51%, #003CC5 100%);
+}
+
+button:hover {
+  background-position: right center;
+}
+
+.user-profile button {
+  margin-left: 30%;
+  margin-top: 10px;
+}
