@@ -1,21 +1,23 @@
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: "https://1783-95-161-221-55.ngrok-free.app/",
+    baseURL: "http://localhost:8080/api",
     //withCredentials: true,
 });
 
 instance.interceptors.request.use(
     (config) => {
-        config.headers = {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            Authorization: `${localStorage.getItem("token")}`,
-            "Content-Type": "application/json; charset=utf-8",
-            Accept: "application/json",
-            "ngrok-skip-browser-warning": "69420",
-        };
+        if (localStorage.getItem("token")) {
+            config.headers = {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                Authorization: `${localStorage.getItem("token")}`,
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            };
+        }
         return config;
     }
 );

@@ -21,8 +21,8 @@ export function Stock() {
             const response = await TradeService.getStockPrice(id);
             const data = response.data;
             const convertedData = data.map(item => ({
-                Date: new Date(item.Date),
-                Price: item.Price
+                Date: new Date(...item.date),
+                Price: item.price
             }));
             const sortData = convertedData.sort((a, b) => a.Date - b.Date);
             setSortedData(sortData);
@@ -59,8 +59,8 @@ export function Stock() {
     return (
         <div className={"stock-container"}>
             <h2>Описание</h2>
-            <p>{description.Name} - торгуется в {description.Currency}</p>
-            <p>{description.Description}</p>
+            <p>{description.name} - торгуется в {description.currency}</p>
+            <p>{description.description}</p>
             <h2>График</h2>
             <div className={"graph"}>
                 <LineChart width={800} height={400} data={chartData}>
