@@ -78,7 +78,7 @@ public class StockService {
                 .currency(stockOptional.get().getCurrency())
                 .name(user.getName() + ' ' + user.getSurname()).build()));
 
-        Optional<PortfolioItem> portfolioItemOptional = portfolioItemRepository.findByStock(stockOptional.get());
+        Optional<PortfolioItem> portfolioItemOptional = portfolioItemRepository.findByStockAndPortfolio(stockOptional.get(), portfolio);
 
         if (portfolioItemOptional.isEmpty()) {
             portfolioItemRepository.save(PortfolioItem.builder()
@@ -88,7 +88,7 @@ public class StockService {
         } else {
             PortfolioItem portfolioItem = portfolioItemOptional.get();
             portfolioItem.setAmount(portfolioItem.getAmount() + amount);
-            portfolioItemRepository.save(portfolioItem         );
+            portfolioItemRepository.save(portfolioItem);
         }
 
         return "Куплено";
@@ -105,9 +105,9 @@ public class StockService {
 
         List<StockPrice> histories = stockPriceRepository.findAllByStockIdOrderByDate(id);
 
-        portfolioRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Нет портфеля"));
+        Portfolio portfolio = portfolioRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Нет портфеля"));
 
-        PortfolioItem portfolioItem = portfolioItemRepository.findByStock(stockOptional.get()).orElseThrow(() -> new RuntimeException("Акция не куплена"));
+        PortfolioItem portfolioItem = portfolioItemRepository.findByStockAndPortfolio(stockOptional.get(), portfolio).orElseThrow(() -> new RuntimeException("Акция не куплена"));
 
         if (portfolioItem.getAmount() < amount) {
             throw new RuntimeException("Не хватает акций");

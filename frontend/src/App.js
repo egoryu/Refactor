@@ -10,10 +10,14 @@ import {RootProfile} from "./components/content/profile/RootProfile";
 import PrivateRouteProfile from "./components/content/profile/privateRouteProfile";
 import {useEffect} from "react";
 import authStore from "./store/store";
+import {checkAuth} from "./store/actions";
+import {useDispatch} from "react-redux";
 
 function App() {
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        authStore.checkAuth();
+        dispatch(checkAuth());
     }, []);
 
     return (
