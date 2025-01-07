@@ -3,16 +3,16 @@ import { instance } from "./api.config.js";
 const ProfileService = {
 
     getProfileData() {
-        return instance.get("/api/profile/");
+        return instance.get("/profile/");
     },
     putProfileData(data) {
-        return instance.put("/api/profile/", data);
+        return instance.put("/profile/", data);
     },
     getPortfolioData() {
-        return instance.get("/api/portfolio/");
+        return instance.get("/profile/portfolio/");
     },
     sendMessage(title, content) {
-        return instance.post("/api/ticket/", {content, title})
+        return instance.post("/profile/ticket/", {content, title})
     }
 }
 

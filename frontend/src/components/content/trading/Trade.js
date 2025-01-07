@@ -15,7 +15,7 @@ export function Trade() {
     const fetchData = async () => {
         try {
             const response = await TradeService.getAllStock();
-            const data = response.data.stocks;
+            const data = response.data;
             setItems(data);
             setCurItems(data)
         } catch (error) {
