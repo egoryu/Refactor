@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "pulse"
+      POSTGRES_USERNAME: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    networks:
+      dev1:
+        ipv4_address: 174.20.0.2
+
+  backend:
+    image: backend:0.0.1
+    build: backend/
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    networks:
+      dev1:
+        ipv4_address: 174.20.0.3
+
+  client:
+    build: frontend/
+    ports:
+      - "8081:80"
+    networks:
+      dev1:
+        ipv4_address: 174.20.0.4
+
+networks:
+  dev1:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 174.20.0.0/16
