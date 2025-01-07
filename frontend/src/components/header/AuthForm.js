@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import validator from 'validator';
 import "../../style/auth.css"
-import authStore from "../../store/store";
 import {Navigate} from "react-router-dom";
+import {login, register} from "../../store/actions";
+import {useDispatch} from "react-redux";
+
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirectToProfile, setRedirectToProfile] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -18,11 +22,11 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        authStore.login(email, password).then(r => setRedirectToProfile(true));
+        dispatch(login(email, password));
     };
 
     if (redirectToProfile) {
-        return <Navigate to="/profile" />;
+        return <Navigate to="/profile"/>;
     }
 
     return (
@@ -30,11 +34,11 @@ const LoginForm = () => {
             <h2>Вход</h2>
             <label>
                 Email:
-                <input type="email" value={email} onChange={handleEmailChange} />
+                <input type="email" value={email} onChange={handleEmailChange}/>
             </label>
             <label>
                 Пароль:
-                <input type="password" value={password} onChange={handlePasswordChange} />
+                <input type="password" value={password} onChange={handlePasswordChange}/>
             </label>
             <button type="submit">Войти</button>
         </form>
@@ -46,6 +50,8 @@ const RegistrationForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [redirectToProfile, setRedirectToProfile] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -61,22 +67,17 @@ const RegistrationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!validator.isEmail(email)) {
+        if (!validator.isEmail(email)) {
             alert("You did not enter email")
-        } else if(password !== confirmPassword) {
+        } else if (password !== confirmPassword) {
             alert("Repeated password incorrectly")
-        // } else if(!validator.isStrongPassword(password, {minSymbols: 8})) {
-        //     alert("Password must consist of one lowercase, uppercase letter and number, at least 8 characters")
         } else {
-            authStore.register(email, password).then(r => authStore.login(email, password)).then(r => setRedirectToProfile(true))
-            .catch(() => {
-                alert("An error occurred on the server")
-            })
+            dispatch(register(email, password));
         }
     };
 
     if (redirectToProfile) {
-        return <Navigate to="/" />;
+        return <Navigate to="/"/>;
     }
 
     return (
@@ -84,15 +85,15 @@ const RegistrationForm = () => {
             <h2>Регистрация</h2>
             <label>
                 Email:
-                <input type="email" value={email} onChange={handleEmailChange} />
+                <input type="email" value={email} onChange={handleEmailChange}/>
             </label>
             <label>
                 Пароль:
-                <input type="password" value={password} onChange={handlePasswordChange} />
+                <input type="password" value={password} onChange={handlePasswordChange}/>
             </label>
             <label>
                 Подтвердите пароль:
-                <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
+                <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange}/>
             </label>
             <button type="submit">Зарегистрироваться</button>
         </form>
@@ -111,7 +112,7 @@ const AuthForm = () => {
             <button onClick={handleToggleForm} className="toggle-button">
                 {isLogin ? 'Регистрация' : 'Вход'}
             </button>
-            {isLogin ? <LoginForm /> : <RegistrationForm />}
+            {isLogin ? <LoginForm/> : <RegistrationForm/>}
         </div>
     );
 };

@@ -1,16 +1,17 @@
-import { Navigate, Outlet } from "react-router-dom";
-import authStore from "../../../store/store.js";
-import { observer } from "mobx-react-lite";
+import {Navigate, Outlet} from "react-router-dom";
+import {observer} from "mobx-react-lite";
+import {useSelector} from "react-redux";
 
 const PrivateRoute = (props) => {
+    const {isAuth, isAuthInProgress} = useSelector((state) => state.auth);
 
-    if (authStore.isAuthInProgress) {
+    if (isAuthInProgress) {
         return <div>Checking auth...</div>;
     }
-    if (authStore.isAuth) {
+    if (isAuth) {
         return <Outlet/>
     } else {
-        return <Navigate to="/" />;
+        return <Navigate to="/"/>;
     }
 };
 

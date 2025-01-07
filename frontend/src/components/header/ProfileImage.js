@@ -1,16 +1,18 @@
 import {useEffect, useState} from "react";
 import Modal from "./Modal";
 import AuthForm from "./AuthForm";
-import authStore from "../../store/store";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {checkAuth, logoutUser} from "../../store/actions";
 
 export function ProfileImage() {
     const [isModalActive, setModalActive] = useState(false);
-    const [isAuth, setAuth] = useState(authStore.isAuth);
+    const dispatch = useDispatch();
+    const {isAuth} = useSelector((state) => state.auth);
 
     useEffect(() => {
-        setAuth(authStore.isAuth);
-    }, [authStore.isAuth]);
+        dispatch(checkAuth());
+    }, [dispatch]);
 
     const handleModalOpen = () => {
         setModalActive(true);
@@ -21,9 +23,7 @@ export function ProfileImage() {
 
     const handleClick = event => {
         if (event.detail === 2) {
-            localStorage.removeItem("token");
-            authStore.isAuth = false;
-            setAuth(false);
+            dispatch(logoutUser());
         }
     };
 
@@ -44,7 +44,7 @@ export function ProfileImage() {
                 <div>
                     {isModalActive && (
                         <Modal title="" onClose={handleModalClose}>
-                            <AuthForm />
+                            <AuthForm/>
                         </Modal>
                     )}
                 </div>

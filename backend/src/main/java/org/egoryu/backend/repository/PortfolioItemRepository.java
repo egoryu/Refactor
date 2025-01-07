@@ -10,5 +10,5 @@ import java.util.Optional;
 
 public interface PortfolioItemRepository extends JpaRepository<PortfolioItem, Long> {
     List<PortfolioItem> findAllByPortfolio(Portfolio portfolio);
-    Optional<PortfolioItem> findByStock(Stock stock);
+    Optional<PortfolioItem> findByStockAndPortfolio(Stock stock, Portfolio portfolio);
 }
